@@ -10,7 +10,7 @@ from random import shuffle
 
 from inginious.frontend.common.parsable_text import ParsableText
 from inginious.common.tasks_problems import BasicProblem, BasicCodeProblem, CodeProblem, CodeSingleLineProblem, MatchProblem, MultipleChoiceProblem, \
-    CodeFileProblem
+    CodeFileProblem, WebglProblem
 from inginious.frontend.common.tasks_code_boxes import DisplayableInputBox, DisplayableMultilineBox, DisplayableTextBox, DisplayableFileBox
 
 
@@ -140,3 +140,16 @@ class DisplayableMatchProblem(MatchProblem, DisplayableBasicProblem):
     def show_input(self, renderer):
         """ Show MatchProblem """
         return str(renderer.tasks.match(self.get_id()))
+
+
+
+class DisplayableWebglProblem(WebglProblem, DisplayableBasicProblem):
+    """ A displayable webgl problem """
+
+    def __init__(self, task, problemid, content):
+        super(DisplayableWebglProblem, self).__init__(task, problemid, content)
+
+    def show_input(self, renderer):
+        """ Show WebglProblem """
+        return str(renderer.tasks.webgl(self._iframe))
+

@@ -289,3 +289,25 @@ class MultipleChoiceProblem(BasicProblem):
             return True, None, "\n\n".join(msgs), 0
         else:
             return True, None, None, 0
+
+
+class WebglProblem(BasicProblem):
+    """Display an input box and check that the content is correct"""
+
+    def __init__(self, task, problemid, content):
+        super(WebglProblem, self).__init__(task, problemid, content)
+        if not "iframe" in content:
+            raise Exception("There is no iframe in this problem with type==webgl")
+        self._iframe = str(content["iframe"])
+
+    def get_type(self):
+        return "webgl"
+
+    def input_is_consistent(self, task_input, default_allowed_extension, default_max_size):
+        return self.get_id() in task_input
+
+    def check_answer(self, taskInput):
+        #if taskInput[self.get_id()].strip() == self._answer:
+        return True, None, "Correct answer", 0
+        #else:
+        #    return False, None, "Invalid answer", 0

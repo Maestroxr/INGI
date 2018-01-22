@@ -5,7 +5,7 @@
 
 """ Task """
 from inginious.common.base import id_checker
-from inginious.common.tasks_problems import CodeProblem, CodeSingleLineProblem, MultipleChoiceProblem, MatchProblem, CodeFileProblem
+from inginious.common.tasks_problems import CodeProblem, CodeSingleLineProblem, MultipleChoiceProblem, MatchProblem, CodeFileProblem, WebglProblem
 
 
 class Task(object):
@@ -22,7 +22,7 @@ class Task(object):
         self._hook_manager = hook_manager
 
         task_problem_types = task_problem_types or {"code": CodeProblem, "code-single-line": CodeSingleLineProblem, "code-file": CodeFileProblem,
-                                                    "multiple-choice": MultipleChoiceProblem, "match": MatchProblem}
+                                                    "multiple-choice": MultipleChoiceProblem, "match": MatchProblem, "webgl": WebglProblem}
 
         self._data = content
 

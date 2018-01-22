@@ -12,7 +12,7 @@ import os.path
 import re
 from zipfile import ZipFile
 import logging
-
+import traceback
 import web
 
 from inginious.common.base import id_checker
@@ -164,6 +164,8 @@ class CourseEditTask(INGIniousAdminPage):
             problem_content.update(custom_content)
             del problem_content["custom"]
 
+
+
         return problem_content
 
     def wipe_task(self, courseid, taskid):
@@ -285,7 +287,8 @@ class CourseEditTask(INGIniousAdminPage):
             # Network grading
             data["network_grading"] = "network_grading" in data
         except Exception as message:
-            return json.dumps({"status": "error", "message": "Your browser returned an invalid form ({})".format(str(message))})
+            info = traceback.format_exc()
+            return json.dumps({"status": "error", "message": "Your browser returned an invalid formD ({})".format(str(message) + "\ninfo:" + str(info) + "\nproblems:" + str(problems))})
 
         # Get the course
         try:
@@ -304,7 +307,7 @@ class CourseEditTask(INGIniousAdminPage):
         try:
             WebAppTask(course, taskid, data, directory_path, self.plugin_manager)
         except Exception as message:
-            return json.dumps({"status": "error", "message": "Invalid data: {}".format(str(message))})
+            return json.dumps({"status": "error", "message": "Invalid data: {}".format(str(message)) + "\ninfo:" + str(data) })
 
         if not os.path.exists(directory_path):
             os.mkdir(directory_path)

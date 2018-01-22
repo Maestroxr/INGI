@@ -298,7 +298,7 @@ function studio_submit()
                 path = tpath;
             }
         });
-
+        alert(editor.getValue())
         if(path) {
             jQuery.ajax({
                 success: function (data) {
@@ -357,6 +357,8 @@ function studio_get_template_for_problem(problem)
         return "#subproblem_match";
     else if(problem["type"] == "multiple-choice")
         return "#subproblem_multiple_choice";
+    else if(problem["type"] == "webgl")
+        return "#subproblem_webgl";
     return "#subproblem_custom";
 }
 
@@ -378,12 +380,13 @@ function studio_create_new_subproblem()
         alert('This problem id is already used.');
         return;
     }
-
+    alert(new_subproblem_type);
     studio_create_from_template('#' + new_subproblem_type, new_subproblem_pid);
     studio_init_template('#' + new_subproblem_type, new_subproblem_pid, {});
 }
 
 /**
+
  * Create a new template and put it at the bottom of the problem list
  * @param template
  * @param pid
@@ -393,6 +396,7 @@ function studio_create_from_template(template, pid)
     var tpl = $(template).html().replace(/PID/g, pid);
     var tplElem = $(tpl);
     $('#accordion').append(tplElem);
+    alert($('#accordion'));
 }
 
 /**
@@ -439,6 +443,8 @@ function studio_init_template(template, pid, problem)
         case "#subproblem_multiple_choice":
             studio_init_template_multiple_choice(well, pid, problem);
             break;
+       case "#subproblem_webgl":
+            studio_init_template_webgl(well, pid, problem);
     }
 }
 
@@ -484,6 +490,23 @@ function studio_init_template_custom(well, pid, problem)
     if("custom" in problem)
         val = problem["custom"];
     registerCodeEditor($('#custom-' + pid)[0], 'yaml', 10).setValue(val);
+}
+
+/**
+ * Init a webgl template
+ * @param well: the DOM element containing the input fields
+ * @param pid
+ * @param problem
+ */
+function studio_init_template_webgl(well, pid, problem)
+{
+    var val = "";
+    if("custom" in problem)
+        val = problem["custom"];
+    registerCodeEditor($('#custom-' + pid)[0], 'yaml', 10).setValue(val);
+    if("iframe" in problem)
+        $('#iframe-' + pid, well).val(problem["iframe"]);
+
 }
 
 /**
