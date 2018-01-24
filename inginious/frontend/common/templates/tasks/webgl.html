@@ -1,4 +1,4 @@
-$def with (iframe)
+$def with (iframe,inputId,optional)
 
 $#
 $# This file is part of INGInious. See the LICENSE and the COPYRIGHTS files for
@@ -6,8 +6,14 @@ $# more information about the licensing of this file.
 $#
 
 <iframe src="$iframe"
-        width="800"
-        height="800"
+        width="100%"
+        min-height="800"
         allowfullscreen=true
         webkitallowfullscreen=true
         mozallowfullscreen=true ></iframe>
+
+<input name="$inputId"
+       id="$inputId"
+       val=""
+       type="hidden"
+/>

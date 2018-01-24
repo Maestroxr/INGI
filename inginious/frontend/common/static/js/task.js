@@ -336,7 +336,8 @@ function submitTask(with_ssh)
         return;
 
     $('#task-debug-mode').val(with_ssh ? "ssh" : "");
-
+    var nameValue = $('#task').serialize()
+    alert(nameValue);
     //Must be done before blurTaskForm as when a form is disabled, no input is sent by the plugin
     $('form#task').ajaxSubmit(
         {
@@ -392,6 +393,7 @@ function waitForSubmission(submissionid)
     setTimeout(function()
     {
         var url = $('form#task').attr("action");
+        alert(url)
         jQuery.post(url, {"@action": "check", "submissionid": submissionid}, null, "json")
             .done(function(data)
             {
