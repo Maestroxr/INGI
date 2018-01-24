@@ -151,5 +151,9 @@ class DisplayableWebglProblem(WebglProblem, DisplayableBasicProblem):
 
     def show_input(self, renderer):
         """ Show WebglProblem """
-        return str(renderer.tasks.webgl(self._iframe, self.get_id(), True))
+        import urllib
+
+        iframe_src = self._iframe + "?" + urllib.urlencode({'inputId': self.get_id(), 'optional': True}, True)
+
+        return str(renderer.tasks.webgl(iframe_src, self.get_id(), True))
 
