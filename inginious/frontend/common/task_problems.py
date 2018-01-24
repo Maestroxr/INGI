@@ -153,7 +153,7 @@ class DisplayableWebglProblem(WebglProblem, DisplayableBasicProblem):
         """ Show WebglProblem """
         import urllib
 
-        iframe_src = self._iframe + "?" + urllib.urlencode({'inputId': self.get_id(), 'optional': True}, True)
+        iframe_src = self._iframe + "?" + urllib.parse.urlencode({'inputId': self.get_id(), 'optional': True}, True)
 
         return str(renderer.tasks.webgl(iframe_src, self.get_id(), True))
 
