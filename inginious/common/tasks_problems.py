@@ -304,10 +304,11 @@ class WebglProblem(BasicProblem):
         return "webgl"
 
     def input_is_consistent(self, task_input, default_allowed_extension, default_max_size):
-        return self.get_id() in task_input
+        return True
+        #return self.get_id() in task_input
 
     def check_answer(self, taskInput):
         #if taskInput[self.get_id()].strip() == self._answer:
-        return True, None, "Correct answer", 0
+        return True, None, "Correct answer" + str(taskInput["unity-input-"+self.get_id()]), 0
         #else:
         #    return False, None, "Invalid answer", 0

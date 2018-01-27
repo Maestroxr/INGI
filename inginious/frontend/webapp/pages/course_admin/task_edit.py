@@ -156,7 +156,7 @@ class CourseEditTask(INGIniousAdminPage):
             except:
                 del problem_content["max_size"]
 
-        if problem_content["type"] == "custom":
+        if problem_content["type"] in {"custom", "webgl"}:
             try:
                 custom_content = inginious.common.custom_yaml.load(problem_content["custom"])
             except:

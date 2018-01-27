@@ -380,7 +380,7 @@ function studio_create_new_subproblem()
         alert('This problem id is already used.');
         return;
     }
-    alert(new_subproblem_type);
+
     studio_create_from_template('#' + new_subproblem_type, new_subproblem_pid);
     studio_init_template('#' + new_subproblem_type, new_subproblem_pid, {});
 }
@@ -396,7 +396,6 @@ function studio_create_from_template(template, pid)
     var tpl = $(template).html().replace(/PID/g, pid);
     var tplElem = $(tpl);
     $('#accordion').append(tplElem);
-    alert($('#accordion'));
 }
 
 /**
@@ -500,12 +499,16 @@ function studio_init_template_custom(well, pid, problem)
  */
 function studio_init_template_webgl(well, pid, problem)
 {
-    var val = "";
+    /*
     if("custom" in problem)
+        var val = "";
         val = problem["custom"];
-    registerCodeEditor($('#custom-' + pid)[0], 'yaml', 10).setValue(val);
+        registerCodeEditor($('#custom-' + pid)[0], 'yaml', 10).setValue(val);
+        */
+
     if("iframe" in problem)
-        $('#iframe-' + pid, well).val(problem["iframe"]);
+    if("iframe" in problem)
+        $('#iframe-' + pid).val(problem["iframe"]);
 
 }
 
