@@ -18,8 +18,8 @@ function onMessage(event) {
 
 // Function to be called from iframe
 function parentFunc(message) {
-    alert(message["problem-data"]);
-    alert(message["problem-input"]);
+    //alert(message["problem-data"]);
+    //alert(message["problem-input"]);
     var problemData = message["problem-data"];
     var problemInputId = message["problem-input"];
 

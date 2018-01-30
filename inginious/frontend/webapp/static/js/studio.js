@@ -298,7 +298,7 @@ function studio_submit()
                 path = tpath;
             }
         });
-        alert(editor.getValue())
+        //alert(editor.getValue())
         if(path) {
             jQuery.ajax({
                 success: function (data) {

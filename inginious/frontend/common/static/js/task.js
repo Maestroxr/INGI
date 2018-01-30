@@ -392,7 +392,7 @@ function waitForSubmission(submissionid)
     setTimeout(function()
     {
         var url = $('form#task').attr("action");
-        alert(url)
+        //alert(url)
         jQuery.post(url, {"@action": "check", "submissionid": submissionid}, null, "json")
             .done(function(data)
             {
