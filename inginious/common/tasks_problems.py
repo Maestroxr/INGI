@@ -8,6 +8,8 @@ from abc import ABCMeta, abstractmethod
 
 from inginious.common.base import id_checker
 from inginious.common.tasks_code_boxes import InputBox, MultilineBox, TextBox, FileBox
+import subprocess
+import os
 
 
 class BasicProblem(object, metaclass=ABCMeta):
@@ -309,6 +311,18 @@ class WebglProblem(BasicProblem):
 
     def check_answer(self, taskInput):
         #if taskInput[self.get_id()].strip() == self._answer:
-        return True, None, "Correct answer" + str(taskInput["unity-input-"+self.get_id()]), 0
+        unity_path = r"~\Unity\Editor\Unity"
+        file_path = r"webgl_" + self.get_id()
+        parameters = r" -input_file_path " + file_path
+        cmd = unity_path + parameters
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        run_output, errors = p.communicate()
+        return_string = str(taskInput["unity-input-"+self.get_id()])
+        output = "No output"
+        if os.path.isfile(file_path):
+            with open(file_path, 'r') as output_file:
+                output = output_file.readlines()
+        return_string = '{0} \n {1} \n {2} \n {3}'.format(return_string, output, run_output, errors)
+        return True, None, "Correct answer:" + return_string, 0
         #else:
         #    return False, None, "Invalid answer", 0
